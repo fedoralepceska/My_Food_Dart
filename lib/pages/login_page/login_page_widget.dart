@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_food/index.dart';
+import 'package:my_food/services/local_auth_service.dart';
 
 import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -20,6 +22,7 @@ class LoginPageWidget extends StatefulWidget {
 
 class _LoginPageWidgetState extends State<LoginPageWidget> {
   late LoginPageModel _model;
+  bool authenticated = false;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -399,6 +402,15 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     ),
                                   ),
                                 ),
+                                ElevatedButton(
+                                    onPressed: () async {
+                                      final authenticate =
+                                          await LocalAuth.authenticate();
+                                      setState(() {
+                                        authenticated = authenticate;
+                                      });
+                                    },
+                                    child: const Text('Authenticate'))
                               ],
                             ),
                           ),
